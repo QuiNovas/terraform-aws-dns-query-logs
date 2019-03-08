@@ -4,6 +4,6 @@ resource "aws_cloudwatch_log_resource_policy" "route53_query_logging_policy" {
 }
 
 resource "aws_cloudwatch_log_group" "query_log" {
-  name              = "/aws/route53/${var.domain_name}"
+  name              = "/aws/route53/${var.hosted_zone_id}"
   retention_in_days = "${var.log_retention_duration}"
 }
