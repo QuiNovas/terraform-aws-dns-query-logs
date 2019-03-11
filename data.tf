@@ -7,18 +7,18 @@ data "aws_route53_zone" "main" {
 
 data "aws_iam_policy_document" "route53_query_logs" {
   statement {
-    actions = [
+    actions   = [
       "logs:CreateLogStream",
       "logs:PutLogEvents",
     ]
-
-    resources = [
-      "${aws_cloudwatch_log_group.query_log.arn}"
-    ]
-
     principals {
-      identifiers = ["route53.amazonaws.com"]
+      identifiers = [
+        "route53.amazonaws.com",
+      ]
       type        = "Service"
     }
+    resources   = [
+      "${aws_cloudwatch_log_group.query_log.arn}"
+    ]
   }
 }
