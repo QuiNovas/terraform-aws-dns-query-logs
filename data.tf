@@ -1,6 +1,10 @@
 data "aws_region" "current" {}
 data "aws_caller_identity" "current" {}
 
+data "aws_route53_zone" "main" {
+  name = "${var.domain_name}"
+}
+
 data "aws_iam_policy_document" "route53_query_logs" {
   statement {
     actions = [
@@ -8,7 +12,9 @@ data "aws_iam_policy_document" "route53_query_logs" {
       "logs:PutLogEvents",
     ]
 
-    resources = ["arn:aws:logs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:log-group:/aws/route53/${var.domain_name}:*"]
+    resources = [
+      "${aws_cloudwatch_log_group.query_log.arn}"
+    ]
 
     principals {
       identifiers = ["route53.amazonaws.com"]
