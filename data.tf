@@ -1,13 +1,16 @@
-data "aws_region" "current" {}
-data "aws_caller_identity" "current" {}
+data "aws_region" "current" {
+}
+
+data "aws_caller_identity" "current" {
+}
 
 data "aws_route53_zone" "main" {
-  name = "${var.domain_name}"
+  name = var.domain_name
 }
 
 data "aws_iam_policy_document" "route53_query_logs" {
   statement {
-    actions   = [
+    actions = [
       "logs:CreateLogStream",
       "logs:PutLogEvents",
     ]
@@ -15,10 +18,11 @@ data "aws_iam_policy_document" "route53_query_logs" {
       identifiers = [
         "route53.amazonaws.com",
       ]
-      type        = "Service"
+      type = "Service"
     }
-    resources   = [
-      "${aws_cloudwatch_log_group.query_log.arn}"
+    resources = [
+      aws_cloudwatch_log_group.query_log.arn,
     ]
   }
 }
+
