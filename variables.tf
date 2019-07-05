@@ -6,6 +6,6 @@ variable "domain_name" {
 variable "log_retention_duration" {
   description = "Cloudwatch Log retention in days, defaults to 7"
   default     = 7
-  type        = string
+  type        = number
 }
 
