@@ -21,7 +21,7 @@ data "aws_iam_policy_document" "route53_query_logs" {
       type = "Service"
     }
     resources = [
-      aws_cloudwatch_log_group.query_log.arn,
+      "${aws_cloudwatch_log_group.query_log.arn}:*",
     ]
   }
 }
